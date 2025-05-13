@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
@@ -15,13 +15,25 @@ export default function Landing() {
     return () => clearTimeout(timer); // 컴포넌트 unmount 시 타이머 해제
   }, []);
   return (
-    <View>
+    <View style={styles.container}>
       <Image
         source={require("./../assets/images/logo.png")} // 로고 이미지 경로
+        style={styles.logo}
       />
 
       <Text>시작하기</Text>
     </View>
   );
 }
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff", // 배경색
+  },
+  logo: {
+    width: 200, // 로고의 너비
+    height: 200, // 로고의 높이
+  },
+});

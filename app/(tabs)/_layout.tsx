@@ -21,7 +21,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Explore"
+        name="Shop"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Image
@@ -36,7 +36,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Cookbook"
+        name="Search"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Image
