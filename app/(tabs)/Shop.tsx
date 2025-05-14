@@ -1,5 +1,6 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -10,6 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { TextInput } from 'react-native-gesture-handler';
 
 type ShopItem = {
   id: string;
@@ -47,9 +49,44 @@ const categories = [
 ];
 
 export default function Shop() {
+  const [userInput, setUserInput] = useState<string>();
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>🧶 도안 상점</Text>
+
+      <View style={styles.searchBar}>
+        <View>
+          <Ionicons name="search" size={24} color="black"
+            style={{ marginHorizontal: 6 }}
+          />
+          {/* <Image source={require('./../../assets/images/search.png')}
+                    style={{
+                    height: 20,
+                    width: 20,
+                    marginHorizontal: 6
+                    }}
+                /> */}
+        </View>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="도안 검색"
+          placeholderTextColor={'gray'}
+          value={userInput}
+          onChangeText={(value) => setUserInput(value)}
+        />
+        <TouchableOpacity
+                onPress={() => setUserInput('')}
+                style={{
+                    padding: 6,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: 2,
+                    justifyContent: 'center'
+                }}>
+                <Ionicons name="close" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
 
       <ImageBackground
         source={require("../../assets/images/bannerImg.jpg")} // 배너 이미지
@@ -107,6 +144,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fffaf0",
   },
+  searchBar: {
+        marginHorizontal: 15,
+        marginBottom: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#D06C5C',
+        borderRadius: 40,
+        backgroundColor: '#fff',
+        padding: 6,
+        paddingLeft: 10
+    },
+    searchInput: {
+        flex: 1,
+        padding: 10,
+        fontSize: 15,
+        borderRadius: 40,
+        
+    },
+    closeIcon: {
+        padding: 8,
+        borderRadius: 25
+    },
   header: {
     fontSize: 22,
     fontWeight: "bold",
