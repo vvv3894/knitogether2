@@ -148,16 +148,18 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 12,
     backgroundColor: "#fff",
-    borderRadius: 4,
+    borderRadius: 10,
     elevation: 4,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowRadius: 10,
   },
   image: {
     width: "100%",
     height: "70%",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10
   },
   title: {
     color: "#431605",
