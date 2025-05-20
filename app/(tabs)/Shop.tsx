@@ -175,7 +175,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingVertical: 16,
     textAlign: "center",
-    marginTop: 40,
+    marginTop: 30,
+    marginBottom: 20,
   },
   listContent: {
     paddingHorizontal: 16,
