@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Image,
@@ -7,11 +7,30 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig"; 
+import { useRouter } from "expo-router";
 
-export default function MyPage() {
-  const handleLogout = () => {
-    // 여기서 실제 로그아웃 로직 처리 (ex. Firebase, OAuth, AsyncStorage 등)
-    Alert.alert("로그아웃", "성공적으로 로그아웃 되었습니다.");
+export default function Profile() {
+  const router = useRouter();
+  const [email, setEmail] = useState(""); // 사용자 이메일 상태
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      setEmail(user.email || ""); // 로그인된 유저 이메일 설정
+    }
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      Alert.alert("로그아웃", "성공적으로 로그아웃 되었습니다.");
+      router.replace("/firebase/login");
+    } catch (error) {
+      console.error("로그아웃 오류:", error);
+      Alert.alert("오류", "로그아웃 중 문제가 발생했습니다.");
+    }
   };
 
   return (
@@ -24,7 +43,7 @@ export default function MyPage() {
           style={styles.profileImage}
         />
         <Text style={styles.username}>니팅러버123</Text>
-        <Text style={styles.email}>knitlover@example.com</Text>
+        <Text style={styles.email}>{email}</Text> {/* 실제 로그인한 이메일 표시 */}
       </View>
 
       <View style={styles.settingsContainer}>
