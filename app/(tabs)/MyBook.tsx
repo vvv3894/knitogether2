@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 type Project = {
   id: string;
@@ -78,9 +79,10 @@ export default function MyBook() {
     <View style={styles.container}>
       <View style={styles.publicHeader}><Ionicons name="qr-code-outline" size={30} color="#431605" /></View>
 
-      <Text style={styles.header}>서재</Text>
-
-      <FlatList
+      <ScrollView>
+        <Text style={styles.header}>서재</Text>
+        
+        <FlatList
         data={projects}
         keyExtractor={(item) => item.id}
         numColumns={numColumns}
@@ -93,30 +95,31 @@ export default function MyBook() {
         style={{paddingTop:5}}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() =>
-              router.push({
-                pathname: "/pattern/[id]",
-                params: { id: item.id },
-              })
-            }
-            style={[
-              styles.card,
-              {
-                width: cardWidth,
-                height: cardWidth * (16 / 9), // 비율 유지 (3:4)
-              },
-            ]}
+          onPress={() =>
+            router.push({
+              pathname: "/pattern/[id]",
+              params: { id: item.id },
+            })
+          }
+          style={[
+            styles.card,
+            {
+              width: cardWidth,
+              height: cardWidth * (16 / 9), // 비율 유지 (3:4)
+            },
+          ]}
           >
             <Image
               source={item.image}
               style={styles.image}
               resizeMode="cover"
-            />
+              />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
           </TouchableOpacity>
         )}
-      />
+        />
+      </ScrollView>
     </View>
   );
 }
