@@ -1,3 +1,5 @@
+import { useRouter } from "expo-router";
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import {
   Alert,
@@ -7,9 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig"; 
-import { useRouter } from "expo-router";
+import { auth } from "../firebase/firebaseConfig";
 
 export default function Profile() {
   const router = useRouter();
@@ -35,7 +35,7 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>⚙️ 설정 / 마이페이지</Text>
+      <Text style={styles.header}>설정 / 마이페이지</Text>
 
       <View style={styles.profileContainer}>
         <Image
@@ -72,9 +72,10 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fffaf0",
+    backgroundColor: "#ffffff",
   },
   header: {
+    color: "#431605",
     fontSize: 22,
     fontWeight: "bold",
     marginTop: 50,
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   username: {
+    color: "#431605",
     fontSize: 18,
     fontWeight: "600",
   },
@@ -108,6 +110,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   settingText: {
+    color: "#431605",
     fontSize: 16,
   },
 });

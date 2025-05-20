@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
+    color: "#431605",
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 4,
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 14,
-    color: "#033",
+    color: "#431605",
     fontWeight: "500",
   },
   buttonContainer: {
