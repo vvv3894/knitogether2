@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -31,13 +31,13 @@ const projects: Project[] = [
     image: require("../../assets/images/도안사진2.jpg"),
   },
   {
-    id: "1",
+    id: "3",
     title: "분홍색 목도리",
     description: "처음으로 만든 목도리예요. 촉감이 부드럽고 포근해요!",
     image: require("../../assets/images/도안사진1.jpg"),
   },
   {
-    id: "2",
+    id: "4",
     title: "초록 니트 모자",
     description: "겨울에 따뜻하게 쓰려고 만든 모자예요.",
     image: require("../../assets/images/도안사진2.jpg"),
@@ -46,6 +46,26 @@ const projects: Project[] = [
 ];
 
 export default function MyBook() {
+  const [numColumns, setNumColumns] = useState(3);
+
+  useEffect(() => {
+    const updateNumColumns = () => {
+      const screenWidth = Dimensions.get("window").width;
+      const columns = Math.floor(screenWidth / (CARD_WIDTH + 16)); // 카드 폭 + 마진
+      setNumColumns(columns > 0 ? columns : 1);
+    };
+
+    updateNumColumns();
+    Dimensions.addEventListener("change", updateNumColumns);
+    const subscription = Dimensions.addEventListener(
+      "change",
+      updateNumColumns
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
   return (
     <View style={styles.container}>
       <Text style={styles.header}>🧶 나의 뜨개질 서재</Text>
@@ -72,14 +92,15 @@ export default function MyBook() {
             <Text style={styles.description}>{item.description}</Text>
           </TouchableOpacity>
         )}
-        numColumns={3} // 한 줄에 3개의 카드가 보이도록 설정
+        numColumns={numColumns}
         contentContainerStyle={styles.listContent}
+        key={numColumns} // numColumns 변경 시 FlatList 재렌더링 강제
       />
     </View>
   );
 }
 
-const CARD_WIDTH = 130; // 원하는 고정 크기
+const CARD_WIDTH = 105; // 원하는 고정 크기
 const CARD_HEIGHT = 200; // 3:4 비율 (110 * 4 / 3 = 약 146.6)
 const screenWidth = Dimensions.get("window").width;
 
@@ -91,8 +112,10 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     fontWeight: "bold",
+    paddingVertical: 20, // 위/아래 패딩을 균등하게 줄임
     padding: 20,
     textAlign: "center",
+    marginTop: 40,
   },
   listContent: {
     paddingHorizontal: 16,
@@ -101,14 +124,15 @@ const styles = StyleSheet.create({
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
-    margin: 8,
+    margin: 4,
+    marginVertical: 8,
     backgroundColor: "#fff",
-    borderRadius: 8,
-    overflow: "hidden",
-    elevation: 2,
+    borderRadius: 4,
+    // overflow: "hidden",
+    elevation: 4,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
   },
   image: {

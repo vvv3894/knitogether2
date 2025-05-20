@@ -1,4 +1,4 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput } from "react-native-gesture-handler";
 
 type ShopItem = {
   id: string;
@@ -42,7 +42,6 @@ const categories = [
   "목도리",
   "가방",
   "인형",
-  "소품",
   "장갑",
   "러그",
   "기타",
@@ -57,7 +56,10 @@ export default function Shop() {
 
       <View style={styles.searchBar}>
         <View>
-          <Ionicons name="search" size={24} color="black"
+          <Ionicons
+            name="search"
+            size={24}
+            color="black"
             style={{ marginHorizontal: 6 }}
           />
           {/* <Image source={require('./../../assets/images/search.png')}
@@ -71,31 +73,32 @@ export default function Shop() {
         <TextInput
           style={styles.searchInput}
           placeholder="도안 검색"
-          placeholderTextColor={'gray'}
+          placeholderTextColor={"gray"}
           value={userInput}
           onChangeText={(value) => setUserInput(value)}
         />
         <TouchableOpacity
-                onPress={() => setUserInput('')}
-                style={{
-                    padding: 6,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    gap: 2,
-                    justifyContent: 'center'
-                }}>
-                <Ionicons name="close" size={24} color="black" />
+          onPress={() => setUserInput("")}
+          style={{
+            padding: 6,
+            display: "flex",
+            flexDirection: "row",
+            gap: 2,
+            justifyContent: "center",
+          }}
+        >
+          <Ionicons name="close" size={24} color="black" />
         </TouchableOpacity>
       </View>
 
       <ImageBackground
         source={require("../../assets/images/bannerImg.jpg")} // 배너 이미지
-        style={styles.banner}
+        style={[styles.banner, { width: screenWidth }]} // width를 고정
         resizeMode="cover"
       >
         <Text style={styles.bannerText}>
           이달의 인기 도안을
-          <br />
+          {"\n"}
           만나보세요 🧵
         </Text>
       </ImageBackground>
@@ -135,7 +138,7 @@ export default function Shop() {
 
 const screenWidth = Dimensions.get("window").width;
 const BUTTON_MARGIN = 8;
-const NUM_COLUMNS = 3;
+const NUM_COLUMNS = 4; // 한 줄에 4개씩
 const BUTTON_WIDTH =
   (screenWidth - BUTTON_MARGIN * (NUM_COLUMNS * 2)) / NUM_COLUMNS;
 
@@ -145,34 +148,34 @@ const styles = StyleSheet.create({
     backgroundColor: "#fffaf0",
   },
   searchBar: {
-        marginHorizontal: 15,
-        marginBottom: 15,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#D06C5C',
-        borderRadius: 40,
-        backgroundColor: '#fff',
-        padding: 6,
-        paddingLeft: 10
-    },
-    searchInput: {
-        flex: 1,
-        padding: 10,
-        fontSize: 15,
-        borderRadius: 40,
-        
-    },
-    closeIcon: {
-        padding: 8,
-        borderRadius: 25
-    },
+    marginHorizontal: 15,
+    marginBottom: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#D06C5C",
+    borderRadius: 40,
+    backgroundColor: "#fff",
+    padding: 2,
+    paddingLeft: 10,
+  },
+  searchInput: {
+    flex: 1,
+    padding: 2,
+    fontSize: 15,
+    borderRadius: 40,
+  },
+  closeIcon: {
+    padding: 8,
+    borderRadius: 25,
+  },
   header: {
     fontSize: 22,
     fontWeight: "bold",
     paddingVertical: 16,
     textAlign: "center",
+    marginTop: 40,
   },
   listContent: {
     paddingHorizontal: 16,
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
   },
   banner: {
     width: "100%",
-    height: 200,
+    height: 170,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
@@ -250,6 +253,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingVertical: 8,
   },
 });
