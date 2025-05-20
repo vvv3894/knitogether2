@@ -52,14 +52,16 @@ export default function Shop() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>🧶 도안 상점</Text>
+      <View style={styles.publicHeader}><Ionicons name="qr-code-outline" size={30} color="#431605" /></View>
+
+      <Text style={styles.header}>도안 상점</Text>
 
       <View style={styles.searchBar}>
         <View>
           <Ionicons
             name="search"
             size={24}
-            color="black"
+            color="#d56c5c"
             style={{ marginHorizontal: 6 }}
           />
           {/* <Image source={require('./../../assets/images/search.png')}
@@ -87,7 +89,7 @@ export default function Shop() {
             justifyContent: "center",
           }}
         >
-          <Ionicons name="close" size={24} color="black" />
+          <Ionicons name="close" size={24} color="#d56c5c" />
         </TouchableOpacity>
       </View>
 
@@ -145,7 +147,24 @@ const BUTTON_WIDTH =
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fffaf0",
+    backgroundColor: "#ffffff",
+  },
+  publicHeader:{
+    paddingVertical: 9,
+    paddingHorizontal: 12,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(208,108,92,0.25)'
+  },
+  header: {
+    paddingVertical: 20,
+    color: "#431605",
+    fontSize: 22,
+    fontWeight: "bold",
+    textAlign: "center"
   },
   searchBar: {
     marginHorizontal: 15,
@@ -157,26 +176,17 @@ const styles = StyleSheet.create({
     borderColor: "#D06C5C",
     borderRadius: 40,
     backgroundColor: "#fff",
-    padding: 2,
     paddingLeft: 10,
   },
   searchInput: {
     flex: 1,
     padding: 2,
     fontSize: 15,
-    borderRadius: 40,
+    borderRadius: 40
   },
   closeIcon: {
     padding: 8,
     borderRadius: 25,
-  },
-  header: {
-    fontSize: 22,
-    fontWeight: "bold",
-    paddingVertical: 16,
-    textAlign: "center",
-    marginTop: 30,
-    marginBottom: 20,
   },
   listContent: {
     paddingHorizontal: 16,

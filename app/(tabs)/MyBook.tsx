@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
@@ -75,7 +76,7 @@ export default function MyBook() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.publicHeader}><Image source={require('../../assets/images/Camera.png')} style={{height: 30,width: 30}}/></View>
+      <View style={styles.publicHeader}><Ionicons name="qr-code-outline" size={30} color="#431605" /></View>
 
       <Text style={styles.header}>서재</Text>
 
@@ -89,6 +90,7 @@ export default function MyBook() {
           justifyContent: "space-between",
           paddingHorizontal: gap,
         }}
+        style={{paddingTop:5}}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
     height: "70%",
   },
   title: {
+    color: "#431605",
     fontSize: 12,
     fontWeight: "bold",
     paddingHorizontal: 6,
