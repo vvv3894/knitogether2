@@ -75,7 +75,9 @@ export default function MyBook() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>🧶 나의 뜨개질 서재</Text>
+      <View style={styles.publicHeader}><Image source={require('../../assets/images/Camera.png')} style={{height: 30,width: 30}}/></View>
+
+      <Text style={styles.header}>서재</Text>
 
       <FlatList
         data={projects}
@@ -120,16 +122,23 @@ export default function MyBook() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fffaf0",
+    backgroundColor: "#ffffff",
+  },
+  publicHeader:{
+    paddingVertical: 9,
+    paddingHorizontal: 12,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(208,108,92,0.25)'
   },
   header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    paddingVertical: 20,
     padding: 20,
-    textAlign: "center",
-    marginTop: 40,
-    marginBottom: 30,
+    color: "#431605",
+    fontSize: 22,
+    fontWeight: "bold"
   },
   listContent: {
     paddingBottom: 16,
