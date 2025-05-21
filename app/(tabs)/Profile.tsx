@@ -13,12 +13,12 @@ import { auth } from "../firebase/firebaseConfig";
 
 export default function Profile() {
   const router = useRouter();
-  const [email, setEmail] = useState(""); // 사용자 이메일 상태
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
-      setEmail(user.email || ""); // 로그인된 유저 이메일 설정
+      setEmail(user.email || "");
     }
   }, []);
 
@@ -39,11 +39,11 @@ export default function Profile() {
 
       <View style={styles.profileContainer}>
         <Image
-          source={require("../../assets/images/avata.png")} // 기본 프로필 이미지
+          source={require("../../assets/images/avata.png")}
           style={styles.profileImage}
         />
         <Text style={styles.username}>니팅러버123</Text>
-        <Text style={styles.email}>{email}</Text> {/* 실제 로그인한 이메일 표시 */}
+        <Text style={styles.email}>{email}</Text>
       </View>
 
       <View style={styles.settingsContainer}>
@@ -60,9 +60,7 @@ export default function Profile() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.settingItem} onPress={handleLogout}>
-          <Text style={[styles.settingText, { color: "red" }]}>
-            🚪 로그아웃
-          </Text>
+          <Text style={[styles.settingText, { color: "red" }]}>🚪 로그아웃</Text>
         </TouchableOpacity>
       </View>
     </View>
