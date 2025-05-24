@@ -52,7 +52,9 @@ export default function Shop() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.publicHeader}><Ionicons name="qr-code-outline" size={30} color="#431605" /></View>
+      <View style={styles.publicHeader}>
+        <Ionicons name="qr-code-outline" size={30} color="#431605" />
+      </View>
 
       <Text style={styles.header}>도안 상점</Text>
 
@@ -119,7 +121,7 @@ export default function Shop() {
           <TouchableOpacity
             onPress={() =>
               router.push({
-                pathname: "/pattern/[id]",
+                pathname: "/shop/[id]",
                 params: { id: item.id },
               })
             }
@@ -149,22 +151,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
   },
-  publicHeader:{
+  publicHeader: {
     paddingVertical: 9,
     paddingHorizontal: 12,
-    display: 'flex',
-    flexDirection: 'row-reverse',
+    display: "flex",
+    flexDirection: "row-reverse",
     height: 48,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: 'rgba(208,108,92,0.25)'
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "rgba(208,108,92,0.25)",
   },
   header: {
     paddingVertical: 20,
     color: "#431605",
     fontSize: 22,
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   searchBar: {
     marginHorizontal: 15,
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 2,
     fontSize: 15,
-    borderRadius: 40
+    borderRadius: 40,
   },
   closeIcon: {
     padding: 8,

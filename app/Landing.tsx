@@ -21,7 +21,7 @@ export default function Landing() {
         style={styles.logo}
       />
 
-      <Text>시작하기</Text>
+      <Text>앱을 로딩 중 입니다</Text>
     </View>
   );
 }

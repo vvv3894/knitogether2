@@ -1,3 +1,4 @@
+// pages/pattern/[id].tsx
 import brierStitchPattern from "@/data/brierStitchPattern";
 import { ResizeMode, Video } from "expo-av";
 import React, { useRef, useState } from "react";
@@ -34,27 +35,51 @@ export default function BrierStitchPage() {
 
   const renderItem = ({ item }: any) => (
     <View style={styles.page}>
+      {item.cover && (
+        <>
+          <View style={styles.cover}>
+            <Image source={{ uri: item.cover }} style={styles.coverImage} />
+            <View style={styles.playIconOverlay}>
+              <Text style={styles.playIcon}>▶</Text>
+            </View>
+          </View>
+        </>
+      )}
+
       <Text style={styles.title}>{item.title}</Text>
 
-      {/* 텍스트 */}
-      {item.content?.text && <Text style={styles.text}>{item.content.text}</Text>}
-
-      {/* 이미지 */}
-      {item.content?.image && (
-        <Image source={{ uri: item.content.image }} style={styles.image} resizeMode="contain" />
-      )}
-
-      {/* 영상 */}
-      {item.content?.video && (
-        <Video
-          source={{ uri: item.content.video }}
-          useNativeControls
-          resizeMode={ResizeMode.CONTAIN}
-          shouldPlay={true}
-          isLooping
-          style={styles.video}
-        />
-      )}
+      {/* 복수 content 블록 처리 */}
+      {item.content?.map((block: any, idx: number) => {
+        if (block.type === "text") {
+          return (
+            <Text key={idx} style={styles.text}>
+              {block.value}
+            </Text>
+          );
+        } else if (block.type === "image") {
+          return (
+            <Image
+              key={idx}
+              source={{ uri: block.value }}
+              style={styles.image}
+              resizeMode="contain"
+            />
+          );
+        } else if (block.type === "video") {
+          return (
+            <Video
+              key={idx}
+              source={{ uri: block.value }}
+              useNativeControls
+              resizeMode={ResizeMode.CONTAIN}
+              shouldPlay={true}
+              isLooping
+              style={styles.video}
+            />
+          );
+        }
+        return null;
+      })}
     </View>
   );
 
@@ -76,26 +101,35 @@ export default function BrierStitchPage() {
           index,
         })}
       />
+
       <View style={styles.progressContainer}>
         <View style={[styles.progressBar, { width: `${progress * 100}%` }]} />
       </View>
 
-      {/* 하단 바 */}
+      {/* 하단 고정 바 */}
       <View style={styles.bottomBar}>
-        {/* 목록 모달 버튼 */}
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>옵션설정</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={styles.buttonText}>목록</Text>
+          <Text style={styles.buttonText}>목차</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>커뮤니티</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>배경설정</Text>
         </TouchableOpacity>
       </View>
 
-      {/* 목록 모달 */}
+      {/* 목차 모달 */}
       <Modal
         visible={modalVisible}
         animationType="slide"
-        transparent={true}
+        transparent
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalOverlay}>
@@ -107,22 +141,21 @@ export default function BrierStitchPage() {
                   key={index}
                   onPress={() => {
                     setModalVisible(false);
-                    flatListRef.current?.scrollToIndex({ index, animated: true });
+                    flatListRef.current?.scrollToIndex({
+                      index,
+                      animated: true,
+                    });
                     setCurrentIndex(index);
                     setProgress((index + 1) / brierStitchPattern.length);
-
-                    setTimeout(() => {
-                      flatListRef.current?.scrollToIndex({ index, animated: true, viewPosition: 0.5 });
-                      setCurrentIndex(index);
-                      setProgress((index + 1) / brierStitchPattern.length);
-                    }, 50);
                   }}
                   style={[
                     styles.modalItem,
                     currentIndex === index && { backgroundColor: "#e0f0ff" },
                   ]}
                 >
-                  <Text style={styles.modalItemText}>{item.title}</Text>
+                  <Text style={styles.modalItemText}>
+                    {index + 1}. {item.title}
+                  </Text>
                 </Pressable>
               ))}
             </ScrollView>
@@ -143,19 +176,17 @@ const styles = StyleSheet.create({
   page: {
     width,
     padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 15,
+    marginBottom: 10,
     textAlign: "center",
   },
   text: {
     fontSize: 16,
     lineHeight: 24,
-    textAlign: "left",
+    marginTop: 10,
   },
   image: {
     width: "100%",
@@ -163,17 +194,45 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   video: {
-    width: width,
+    width: width - 40,
     height: (width * 9) / 16,
     marginTop: 10,
     backgroundColor: "black",
+  },
+
+  cover: {
+    position: "relative",
+    width: "100%",
+    height: 200,
+    marginBottom: 15,
+  },
+  coverImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 10,
+  },
+  playIconOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  playIcon: {
+    fontSize: 40,
+    color: "white",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    padding: 10,
+    borderRadius: 50,
   },
   progressContainer: {
     height: 4,
     width: "100%",
     backgroundColor: "#eee",
     position: "absolute",
-    bottom: 40, // 하단바 위로 올림
+    bottom: 40,
     left: 0,
   },
   progressBar: {
@@ -190,14 +249,12 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "#ddd",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
   },
   button: {
-    backgroundColor: "lightgrey",
-    paddingHorizontal: 15,
-    paddingVertical: 7,
-    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
   },
   buttonText: {
     color: "black",
@@ -206,12 +263,12 @@ const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.3)",
-    justifyContent: "center",
-    paddingHorizontal: 30,
+    justifyContent: "flex-end",
   },
   modalContent: {
     backgroundColor: "white",
-    borderRadius: 10,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
     maxHeight: "70%",
     padding: 20,
   },
