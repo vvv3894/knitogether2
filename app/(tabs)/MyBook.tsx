@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 
 type Project = {
   id: string;
@@ -21,10 +20,11 @@ type Project = {
 
 const projects: Project[] = [
   {
-    id: "1",
-    title: "분홍색 목도리",
-    description: "처음으로 만든 목도리예요. 촉감이 부드럽고 포근해요!",
-    image: require("../../assets/images/도안사진1.jpg"),
+    id: "514",
+    title: "스포츠 스웨터 (Athletic Sweater)",
+    description: "Antique Pattern Library",
+    image:
+      "https://res.cloudinary.com/dvo3p6sao/image/upload/v1748100053/514_cover.png?v=1",
   },
   {
     id: "2",
@@ -77,12 +77,13 @@ export default function MyBook() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.publicHeader}><Ionicons name="qr-code-outline" size={30} color="#431605" /></View>
+      <View style={styles.publicHeader}>
+        <Ionicons name="qr-code-outline" size={30} color="#431605" />
+      </View>
 
-      <ScrollView>
-        <Text style={styles.header}>서재</Text>
-        
-        <FlatList
+      <Text style={styles.header}>서재</Text>
+
+      <FlatList
         data={projects}
         keyExtractor={(item) => item.id}
         numColumns={numColumns}
@@ -92,34 +93,33 @@ export default function MyBook() {
           justifyContent: "space-between",
           paddingHorizontal: gap,
         }}
-        style={{paddingTop:5}}
+        style={{ paddingTop: 5 }}
         renderItem={({ item }) => (
           <TouchableOpacity
-          onPress={() =>
-            router.push({
-              pathname: "/pattern/[id]",
-              params: { id: item.id },
-            })
-          }
-          style={[
-            styles.card,
-            {
-              width: cardWidth,
-              height: cardWidth * (16 / 9), // 비율 유지 (3:4)
-            },
-          ]}
+            onPress={() =>
+              router.push({
+                pathname: "/pattern/[id]",
+                params: { id: item.id },
+              })
+            }
+            style={[
+              styles.card,
+              {
+                width: cardWidth,
+                height: cardWidth * (16 / 9), // 비율 유지 (3:4)
+              },
+            ]}
           >
             <Image
               source={item.image}
               style={styles.image}
               resizeMode="cover"
-              />
+            />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
           </TouchableOpacity>
         )}
-        />
-      </ScrollView>
+      />
     </View>
   );
 }
@@ -129,21 +129,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
   },
-  publicHeader:{
+  publicHeader: {
     paddingVertical: 9,
     paddingHorizontal: 12,
-    display: 'flex',
-    flexDirection: 'row-reverse',
+    display: "flex",
+    flexDirection: "row-reverse",
     height: 48,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: 'rgba(208,108,92,0.25)'
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "rgba(208,108,92,0.25)",
   },
   header: {
     padding: 20,
     color: "#431605",
     fontSize: 22,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   listContent: {
     paddingBottom: 16,
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "70%",
     borderTopLeftRadius: 10,
-    borderTopRightRadius: 10
+    borderTopRightRadius: 10,
   },
   title: {
     color: "#431605",

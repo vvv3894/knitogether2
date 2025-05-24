@@ -60,7 +60,9 @@ export default function Profile() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.settingItem} onPress={handleLogout}>
-          <Text style={[styles.settingText, { color: "red" }]}>🚪 로그아웃</Text>
+          <Text style={[styles.settingText, { color: "red" }]}>
+            🚪 로그아웃
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
