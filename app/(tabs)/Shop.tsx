@@ -204,7 +204,9 @@ export default function Shop() {
   return (
     <View style={styles.container}>
       <View style={styles.publicHeader}>
-        <Ionicons name="qr-code-outline" size={30} color="#431605" />
+        <TouchableOpacity>
+          <Ionicons name="qr-code-outline" size={30} color="#431605" />
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.header}>도안 상점</Text>
