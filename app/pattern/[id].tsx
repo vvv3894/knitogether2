@@ -93,7 +93,7 @@ const patternData: {
   "522": {
     title: "Knit Shoulder Scarf No. 522",
     description: "초보자를 위한 도안입니다.",
-    image: require("../../assets/images/도안사진6.png"),
+    image: require("../../assets/images/도안사진1.jpg"),
     pages: {
       "0": {
         pagename: "도안 소개",
