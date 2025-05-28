@@ -90,16 +90,54 @@ const patternData: {
       },
     },
   },
-  "2": {
-    title: "초록 니트 모자",
-    description: "중급자용 모자 도안입니다.",
-    image: require("../../assets/images/도안사진2.jpg"),
+  "522": {
+    title: "Knit Shoulder Scarf No. 522",
+    description: "초보자를 위한 도안입니다.",
+    image: require("../../assets/images/도안사진6.png"),
     pages: {
+      "0": {
+        pagename: "도안 소개",
+        content:
+          "Knit Shoulder Scarf\n작성자 : Antique Pattern Library ",
+        image:
+          "",
+      },
       "1": {
-        content: "1페이지 내용",
+        pagename: "준비물",
+        content:
+          "사용 실\n하얀 실 5볼 : Corticelli Shetland Flosola Yarn No. 98\n파란 실 1볼 : Corticelli Shetland Flosola Yarn No. 33\n분홍 실 1볼 : Corticelli Shetland Flosola Yarn No. 20\n보라 실 1볼 : Corticelli Shetland Flosola Yarn No. 70\n갈색 실 1볼 : Corticelli Shetland Flosola Yarn No. 59 \n \n사용 바늘\n 5.5mm 대바늘 한쌍",
+        },
+      "2": {
+        pagename: "시작",
+        video:
+          "",
+        content:
+          "하얀 실로 100코 코잡기(좁게 만들 경우 보다 적게 잡아주세요.)\n\n색을 바꿔가며 겉뜨기 반복",
+      },
+      "3": {
+        pagename: "실 색 변경",
+        video:
+          "",
+        content:
+          "31단 : 갈색 실\n32-38단 : 파란 실\n39단 : 갈색 실\n40-48단 : 하얀 실\n49단 : 갈색 실\n50-56단 : 분홍 실\n57단 : 갈색 실\n58-66단 : 하얀 실\n67단 : 갈색 실\n68-74단 : 보라 실\n76단 : 갈색 실\n77-127단 : 하얀 실",
+      },
+      "4": {
+        pagename: "코막음",
+        content:
+          "128-253단 : 127단부터 2단까지 거꾸로 수행\n\n겉뜨기로 코막음",
+        video:
+          "",
+      },
+      "5": {
+        pagename: "술 달기",
+        video:
+          "",
+        content:
+          "15가닥의 흰색 실로 양 쪽에 태슬을 25개씩 달아 마무리 합니다.",
       },
     },
   },
+
 };
 
 function getPagesArray(patternId: string) {
