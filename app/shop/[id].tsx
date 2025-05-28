@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   center: { flex: 1, justifyContent: "center", alignItems: "center" },
   image: { width: "100%", height: 250, borderRadius: 10, marginBottom: 16 },
 
-  title: { fontSize: 26, fontWeight: "bold", marginBottom: 12, color: "#222" },
+  title: { fontSize: 26, fontWeight: "bold", marginBottom: 12, color: "#431605" },
 
   label: {
     fontSize: 16,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 16,
-    color: "#444",
+    color: "#431605",
     lineHeight: 22,
   },
 

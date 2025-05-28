@@ -93,14 +93,13 @@ const patternData: {
   "522": {
     title: "Knit Shoulder Scarf No. 522",
     description: "초보자를 위한 도안입니다.",
-    image: require("../../assets/images/도안사진1.jpg"),
+    image: require("../../assets/images/도안사진6.png"),
     pages: {
       "0": {
         pagename: "도안 소개",
         content:
           "Knit Shoulder Scarf\n작성자 : Antique Pattern Library ",
-        image:
-          "",
+        image: require("../../assets/images/도안사진6.png"),
       },
       "1": {
         pagename: "준비물",
@@ -137,7 +136,6 @@ const patternData: {
       },
     },
   },
-
 };
 
 function getPagesArray(patternId: string) {
@@ -317,7 +315,7 @@ export default function PatternPage() {
                   }}
                   style={[
                     styles.modalItem,
-                    currentIndex === index && { backgroundColor: "#D06c5c" },
+                    currentIndex === index && { backgroundColor: "rgba(208,108,92,0.25)" },
                   ]}
                 >
                   <Text style={styles.modalItemText}>
@@ -425,7 +423,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   buttonText: {
-    color: "black",
+    color: "#431605",
     fontWeight: "600",
   },
   modalOverlay: {
@@ -452,6 +450,7 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
   },
   modalItemText: {
+    color: "#431605",
     fontSize: 16,
   },
 });

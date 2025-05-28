@@ -35,6 +35,7 @@ export default function TabLayout() {
           ),
         }}
       />
+      {/*
       <Tabs.Screen
         name="Search"
         options={{
@@ -50,6 +51,7 @@ export default function TabLayout() {
           ),
         }}
       />
+      */}
       <Tabs.Screen
         name="Profile"
         options={{

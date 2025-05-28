@@ -21,7 +21,118 @@ export const shopItems: ShopItem[] = [
       title: "초록 니트 모자",
       description: "겨울에 따뜻하게 쓰려고 만든 모자예요.",
       image: require("../assets/images/pattern02.jpg"),
-    //   image: require("../../assets/images/patten01.jpg"),
+    },
+    {
+      id: "479",
+      title: "Knit Sweater No. 479",
+      category: "외투",
+      description: "세로 줄무늬가 매력적인 코트입니다.",
+      needles: ["대바늘 5.5mm"],
+      writer: "Antique Pattern Library",
+      yarns: [
+        "Corticelli Shetland Flosola, 14 balls Violet No. 74",
+        "Corticelli Shetland Flosola, 2 balls White No. 98"
+      ],
+      image: require("../assets/images/479.jpg"),
+    },
+    {
+      id: "480",
+      title: "Country Club Knit Sweater No. 480",
+      category: "상의",
+      description: "몸체는 대바늘을 사용하고 칼라와 소매는 코바늘을 사용하는 디자인입니다. 네크라인이 깊게 파여있어 레이어드해서 코디하는 것을 추천드립니다.",
+      needles: ["대바늘 5.5mm","코바늘 5.5mm"],
+      writer: "Antique Pattern Library",
+      yarns: [
+        "Corticelli Shetland Flosola Yarn, 8 balls Old Rose No. 22",
+        "Corticelli Sweater Silk, 8 balls Deep Pink No. 237",
+        "Corticelli Crochet and Knitting Silk, 4 spools Paisley No. 1207"
+      ],
+      image: require("../assets/images/480.jpg"),
+    },
+    {
+      id: "487",
+      title: "Silk Dresden Sweater No. 487",
+      category: "외투",
+      description: "전체적으로 다양한 색상이 어우러져 독특한 느낌의 디자인입니다. 장식 링이 많아(18개) 조금 어렵습니다!",
+      needles: ["대바늘 5.5mm","코바늘 4.5mm"],
+      writer: "Antique Pattern Library",
+      yarns: [
+        "Corticelli Sweater Silk, 10 balls Beauty Rose No. 640",
+        "Corticelli Crochet Silk, 2 spools Duck Green No. 1016.5",
+        "Corticelli Crochet Silk, 1 spool Lilac No. 650",
+        "Corticelli Crochet Silk, 1 spool Canary No. 506",
+        "Corticelli Crochet Silk, 1 spool Helen Pink No 1076.4",
+        "Corticelli Crochet Silk, 1 spool Sand No. 1142.9",
+        "Corticelli Crochet Silk, 1 spool Turquoise Blue No. 1019.6",
+        "Corticelli Crochet Silk, 2 spools White No. 1191"
+      ],
+      image: require("../assets/images/487.jpg"),
+    },
+    {
+      id: "507",
+      title: "Knit Moter Coat No. 507",
+      category: "외투",
+      description: "베이직한 디자인의 코트입니다.",
+      needles: ["대바늘 5.5mm","대바늘 6mm"],
+      writer: "Antique Pattern Library",
+      yarns: [
+        "Corticelli Knitola Fingering Yarn, 15 balls Dark Brown No. 59",
+        "Corticelli Shetland Flosola Yarn, 3 balls Pongee No. 51"
+      ],
+      image: require("../assets/images/507.jpg"),
+    },
+    {
+      id: "508",
+      title: "Sweater with Girdle No. 508",
+      category: "외투",
+      description: "높은 위치에서 허리라인을 강조하여 페미닌한 느낌을 주고 다리가 길어보이는 디자인입니다.",
+      needles: ["대바늘 5.5mm"],
+      writer: "Antique Pattern Library",
+      yarns: [
+        "Corticelli Shetland Flosola Yarn, 20 balls Chartreuse No. 43",
+        "Corticelli Tezola Yarn, 34 balls White No. 98"
+      ],
+      image: require("../assets/images/508.jpg"),
+    },
+    {
+      id: "509",
+      title: "Knitted Girdle Sweater No. 509",
+      category: "외투",
+      description: "브라이어 스티치로 마감한 칼라가 독특한 느낌을 주는 롱기장의 가디건입니다.",
+      needles: ["대바늘 5.5mm"],
+      writer: "Antique Pattern Library",
+      yarns: [
+        "Corticelli Shetland Flosola, 14 balls Tan Brown No. 52",
+        "Corticelli Sweater Silk, 2 balls Apple Green No. 1000.5",
+        "Corticelli Sweater Silk, 1 ball Blue No. 34"
+      ],
+      image: require("../assets/images/509.jpg"),
+    },
+    {
+      id: "510",
+      title: "Athletic Sweater No. 510",
+      category: "상의",
+      description: "넓은 허리띠로 포인트를 준 기장감이 있는 스웨터입니다. 네크라인이 깊게 파여있어 레이어드해서 코디하는 것을 추천드립니다.",
+      needles: ["대바늘 5.5mm"],
+      writer: "Antique Pattern Library",
+      yarns: [
+        "Corticelli Shetland Flosola Yarn, 15 balls Turquoise No. 38",
+        "Corticelli Shetland Flosola Yarn, 3 balls White No. 98"
+      ],
+      image: require("../assets/images/510.jpg"),
+    },
+    {
+      id: "511",
+      title: "Country Club Sweater No. 511",
+      category: "상의",
+      description: "직선적인 느낌의 롱스웨터입니다. 네크라인이 깊게 파여있어 레이어드해서 코디하는 것을 추천드립니다.",
+      needles: ["코바늘 5.5mm"],
+      writer: "Antique Pattern Library",
+      yarns: [
+        "Corticelli Angola Yarn, 20 balls Apple Green No. 44",
+        "Corticelli Tezola Yarn, 5 balls White No. 98",
+      ],
+      image: require("../assets/images/511.jpg"),
     },
     {
       id: "512",
@@ -35,6 +146,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Tezola Yarn, 10 balls Joffre Blue No. 34",
         "Corticelli Sweater Silk, 1 ball Yellow No. 344",
       ],
+      image: require("../assets/images/512.jpg"),
     },
     {
       id: "513",
@@ -48,6 +160,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Knitola Fingering Yarn, 15 balls Delft Blue No. 35",
         "Corticelli Knitola Fingering Yarn, 1 ball Chamois No. 50",
       ],
+      image: require("../assets/images/513.jpg"),
     },
     {
       id: "514",
@@ -63,6 +176,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Shetland Flosola Yarn, 1 ball Chamois No. 99",
         "Corticelli Shetland Flosola Yarn, 1 ball Black No. 50",
       ],
+      image: require("../assets/images/514.jpg"),
     },
     {
       id: "516",
@@ -72,6 +186,7 @@ export const shopItems: ShopItem[] = [
       needles: ["코바늘 5.5mm"],
       writer: "Antique Pattern Library",
       yarns: ["Corticelli Sweater Silk, 7 balls Old Gold No. 985.9"],
+      image: require("../assets/images/516.jpg"),
     },
     {
       id: "517",
@@ -85,6 +200,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Knitola Fingering Yarn, 1 ball French Grey No. 61",
         "Corticelli Shetland Flosola Yarn, 2 balls Pink No. 20",
       ],
+      image: require("../assets/images/517.jpg"),
     },
     {
       id: "518",
@@ -100,6 +216,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Shetland Flosola Yarn, 1 ball Old Gold No. 81",
         "Corticelli Shetland Flosola Yarn, 1 ball Black No. 99",
       ],
+      image: require("../assets/images/518.jpg"),
     },
     {
       id: "519",
@@ -112,6 +229,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Shetland Flosola Yarn, 4 balls White No. 98",
         "Corticelli Sweater Silk, 1 ball Deep Pink No. 237",
       ],
+      image: require("../assets/images/519.jpg"),
     },
     {
       id: "520",
@@ -126,6 +244,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Shetland Flosola Yarn, 1 ball Turquoise No. 38",
         "Corticelli Shetland Flosola Yarn, 1 ball Old Rose No. 22",
       ],
+      image: require("../assets/images/520.jpg"),
     },
     {
       id: "522",
@@ -142,6 +261,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Shetland Flosola Yarn, 1 ball Orchid No. 70",
         "Corticelli Shetland Flosola Yarn, 1 ball Dark Brown No. 59",
       ],
+      image: require("../assets/images/522.jpg"),
     },
     {
       id: "536",
@@ -154,6 +274,7 @@ export const shopItems: ShopItem[] = [
         "Corticelli Knitola Fingering Yarn, 5 balls Light Oxford No. 68",
         "Corticelli Knitola Fingering Yarn, 5 balls Khaki No. 83 or Khaki Mixture No. 84",
       ],
+      image: require("../assets/images/536.jpg"),
     },
     {
       id: "539",
@@ -166,6 +287,7 @@ export const shopItems: ShopItem[] = [
       yarns: [
         "Corticelli Knitola Fingering Yarn, 3 balls Light Oxford No. 68 or Khaki No. 83 or Khaki Mixture No. 84",
       ],
+      image: require("../assets/images/539.jpg"),
     },
     {
       id: "551",
@@ -179,5 +301,6 @@ export const shopItems: ShopItem[] = [
         "Corticelli Tezola Yarn, 24 balls White No. 98",
         "Corticelli Tezola Yarn, 12 balls Joffre Blue No. 34",
       ],
+      image: require("../assets/images/551.jpg"),
     },
   ];

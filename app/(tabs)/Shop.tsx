@@ -143,9 +143,11 @@ export default function Shop() {
   <Text style={styles.label}>카테고리:</Text>
   <Text style={styles.value}>{item.category}</Text>
 </View>
+{/*
             <View style={styles.row}> 
             </View>
             <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail" >{item.description}</Text>
+            */}
               </View>
           </TouchableOpacity>
         )}

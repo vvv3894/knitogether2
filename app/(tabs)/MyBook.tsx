@@ -27,6 +27,12 @@ const projects: Project[] = [
       "https://res.cloudinary.com/dvo3p6sao/image/upload/v1748100053/514_cover.png?v=1",
   },
   {
+    id: "522",
+    title: "Knit Shoulder Scarf No. 522",
+    description: "Antique Pattern Library",
+    image: require("../../assets/images/도안사진6.png"),
+  },
+  {
     id: "2",
     title: "초록 니트 모자",
     description: "겨울에 따뜻하게 쓰려고 만든 모자예요.",
@@ -37,12 +43,6 @@ const projects: Project[] = [
     title: "분홍색 목도리",
     description: "처음으로 만든 목도리예요. 촉감이 부드럽고 포근해요!",
     image: require("../../assets/images/도안사진1.jpg"),
-  },
-  {
-    id: "4",
-    title: "초록 니트 모자",
-    description: "겨울에 따뜻하게 쓰려고 만든 모자예요.",
-    image: require("../../assets/images/도안사진2.jpg"),
   },
 ];
 
@@ -78,12 +78,7 @@ export default function MyBook() {
   return (
     <View style={styles.container}>
       <View style={styles.publicHeader}>
-        <TouchableOpacity
-          onPress={() => 
-            router.push({
-              pathname: "/qr/QrScan",
-            })
-          }>
+        <TouchableOpacity>
           <Ionicons name="qr-code-outline" size={30} color="#431605" />
         </TouchableOpacity>
       </View>
@@ -113,7 +108,7 @@ export default function MyBook() {
               styles.card,
               {
                 width: cardWidth,
-                height: cardWidth * (16 / 9), // 비율 유지 (3:4)
+                height: cardWidth * (11 / 9), // 비율 유지 (3:v11)
               },
             ]}
           >
