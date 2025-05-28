@@ -117,8 +117,10 @@ export default function MyBook() {
               style={styles.image}
               resizeMode="cover"
             />
+            <View>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
+            </View>
           </TouchableOpacity>
         )}
       />
@@ -177,6 +179,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
     paddingHorizontal: 6,
     color: "#666",
+  },
+  row: {
+    flexDirection: "row",
+    gap: 6,
   },
 });
 

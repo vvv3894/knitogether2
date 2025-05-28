@@ -76,7 +76,7 @@ const patternData: {
           "코바늘을 이용하여 파란 실, 노란 실, 장미색 실 순으로 1단씩 짧은 뜨기\n장미색 실로 빼뜨기하여 한 바퀴 마감",
 
         video:
-          "https://res.cloudinary.com/dvo3p6sao/video/upload/v1747804469/01v3_%EC%BD%94%EB%8A%98%EB%A6%BC_1.mp4",
+          "https://res.cloudinary.com/dvo3p6sao/video/upload/w_375,h_300/v1747804469/01v3_%EC%BD%94%EB%8A%98%EB%A6%BC_1.mp4",
       },
       "5": {
         pagename: "카라",
@@ -158,7 +158,7 @@ export default function PatternPage() {
 
   const renderItem = ({ item }: any) => {
     return (
-      <View style={styles.page}>
+      <View style={styles.page} >
         <Text style={styles.title}>{item.title}</Text>
 
         {item.content?.map((block: any, idx: number) => {
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     width: width - 40,
     height: (width * 9) / 16,
     marginTop: 10,
-    backgroundColor: "black",
+    backgroundColor: "grey",
   },
 
   cover: {
