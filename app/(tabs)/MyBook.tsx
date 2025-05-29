@@ -23,8 +23,8 @@ const projects: Project[] = [
     id: "514",
     title: "스포츠 스웨터 (Athletic Sweater)",
     description: "Antique Pattern Library",
-    image:
-      "https://res.cloudinary.com/dvo3p6sao/image/upload/v1748100053/514_cover.png?v=1",
+    image: require("../../assets/images/도안사진7.png"),
+//      "https://res.cloudinary.com/dvo3p6sao/image/upload/v1748100053/514_cover.png?v=1",
   },
   {
     id: "522",
@@ -108,7 +108,7 @@ export default function MyBook() {
               styles.card,
               {
                 width: cardWidth,
-                height: cardWidth * (11 / 9), // 비율 유지 (3:v11)
+                height: cardWidth * (16 / 9), // 비율 유지 (3:4)
               },
             ]}
           >
