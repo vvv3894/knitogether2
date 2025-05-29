@@ -13,6 +13,12 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
+          name="firebase/login"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="pattern/[id]"
           options={{
             headerShown: false,
