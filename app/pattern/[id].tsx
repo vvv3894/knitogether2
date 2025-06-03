@@ -58,9 +58,11 @@ const patternData: {
         pagename: "등판",
         content:
           "장미색 실로 80코 코잡기\n/*3코 고무뜨기*/\n1-11단 : 안뜨기로 시작해서 3코 고무뜨기 11단 반복\n12-63단 : 색을 바꿔가며 3코 고무뜨기 반복\n  12-13단 : 검정 실\n  14-21단 : 장미색 실\n  22-23단 : 검정 실\n  24-31단 : 파란 실\n  32-33단 : 검정 실\n  34-41단 : 노란 실\n  42-43단 : 검정 실\n  44-51단 : 파란 실\n  52-53단 : 검정 실\n  54-61단 : 장미색 실\n  62-63단 : 검정 실\n장미색 실로 변경해서 전체 길이가 18인치가 될 때까지 겉뜨기\n단의 양 끝에 마커를 하나씩 걸어줍니다. (소매 시작 표시)\n겉뜨기 72단 반복",
-
-        image:
-          "https://res.cloudinary.com/dvo3p6sao/image/upload/v1747798694/%EB%B8%8C%EB%9D%BC%EC%9D%B4%EC%96%B4%EC%8A%A4%ED%8B%B0%EC%B9%98.png",
+        video:
+          "https://res.cloudinary.com/dvo3p6sao/video/upload/w_380,h_213/v1748965335/SHANA_514_3%EC%BD%94_%EA%B3%A0%EB%AC%B4%EB%9C%A8%EA%B8%B0.mp4",
+        //   image:
+        //     "https://res.cloudinary.com/dvo3p6sao/image/upload/w_380,h_213/v1747798694/%EB%B8%8C%EB%9D%BC%EC%9D%B4%EC%96%B4%EC%8A%A4%ED%8B%B0%EC%B9%98.png",
+        //
       },
       "3": {
         pagename: "앞판",
@@ -68,7 +70,7 @@ const patternData: {
           "32코 겉뜨기, 16코 코막음, 앞서 뜬 32코 안전핀에 보관\n/*코늘림*/\n반대편 32코는 겉뜨기로 6단 더 뜨고, 이후 20단 동안 목 쪽에 한 단마다 1코씩 늘리면서 겉뜨기\n/*케이블 캐스트 온*/\n목 쪽에서 케이블 캐스트 온으로 10코를 만들어서 46단 겉뜨기\n단의 양 끝에 마커를 하나씩 걸어줍니다. (소매 끝 표시)\n14단을 더 겉뜨기하여 앞면 쪽에서 단을 끝내고, 이 코들도 안전핀에 보관\n안전핀에 보관했던 32코도 같은 방식으로 진행\n앞판을 한 바늘에 연결한 후, 등판과 포갰을 때 63단 전까지 겉뜨기\n등판과 동일하게 컬러 스트라이프 뜨고 코막음",
 
         video:
-          "https://res.cloudinary.com/dvo3p6sao/video/upload/w_380,h_213/v1747804469/01v3_%EC%BD%94%EB%8A%98%EB%A6%BC_1.mp4",
+          "https://res.cloudinary.com/dvo3p6sao/video/upload/w_380,h_213/v1748965339/SHANA_514_%EC%BC%80%EC%9D%B4%EB%B8%94_%EC%BA%90%EC%8A%A4%ED%8A%B8_%EC%98%A8.mp4",
       },
       "4": {
         pagename: "팔 둘레 마감",
@@ -97,42 +99,39 @@ const patternData: {
     pages: {
       "0": {
         pagename: "도안 소개",
-        content:
-          "Knit Shoulder Scarf\n작성자 : Antique Pattern Library ",
+        content: "Knit Shoulder Scarf\n작성자 : Antique Pattern Library ",
         image: require("../../assets/images/도안사진6.png"),
       },
       "1": {
         pagename: "준비물",
         content:
           "사용 실\n하얀 실 5볼 : Corticelli Shetland Flosola Yarn No. 98\n파란 실 1볼 : Corticelli Shetland Flosola Yarn No. 33\n분홍 실 1볼 : Corticelli Shetland Flosola Yarn No. 20\n보라 실 1볼 : Corticelli Shetland Flosola Yarn No. 70\n갈색 실 1볼 : Corticelli Shetland Flosola Yarn No. 59 \n \n사용 바늘\n 5.5mm 대바늘 한쌍",
-        },
+      },
       "2": {
         pagename: "시작",
         video:
-          "",
+          "https://res.cloudinary.com/dvo3p6sao/video/upload/w_380,h_213/v1748965343/SHANA_522_%EC%BD%94%EC%9E%A1%EA%B3%A0_%EA%B2%89%EB%9C%A8%EA%B8%B0.mp4",
         content:
           "하얀 실로 100코 코잡기(좁게 만들 경우 보다 적게 잡아주세요.)\n\n색을 바꿔가며 겉뜨기 반복",
       },
       "3": {
         pagename: "실 색 변경",
         video:
-          "",
+          "https://res.cloudinary.com/dvo3p6sao/video/upload/w_380,h_213/v1748965337/SHANA_522_%EC%8B%A4_%EB%B0%94%EA%BE%B8%EA%B8%B0.mp4",
         content:
           "31단 : 갈색 실\n32-38단 : 파란 실\n39단 : 갈색 실\n40-48단 : 하얀 실\n49단 : 갈색 실\n50-56단 : 분홍 실\n57단 : 갈색 실\n58-66단 : 하얀 실\n67단 : 갈색 실\n68-74단 : 보라 실\n76단 : 갈색 실\n77-127단 : 하얀 실",
       },
       "4": {
         pagename: "코막음",
-        content:
-          "128-253단 : 127단부터 2단까지 거꾸로 수행\n\n겉뜨기로 코막음",
+        content: "128-253단 : 127단부터 2단까지 거꾸로 수행\n\n겉뜨기로 코막음",
         video:
-          "",
+          "https://res.cloudinary.com/dvo3p6sao/video/upload/w_380,h_213/v1748965334/SHANA_522_%EA%B2%89%EB%9C%A8%EA%B8%B0%EB%A1%9C_%EC%BD%94%EB%A7%89%EC%9D%8C.mp4",
       },
       "5": {
         pagename: "술 달기",
         video:
-          "",
-        content:
-          "15가닥의 흰색 실로 양 쪽에 태슬을 25개씩 달아 마무리 합니다.",
+          "https://res.cloudinary.com/dvo3p6sao/video/upload/w_380,h_213/v1748965334/SHANA_522_%EC%88%A0_%EB%8B%AC%EA%B8%B0.mp4",
+        content: "15가닥의 흰색 실로 양 쪽에 태슬을 25개씩 달아 마무리 합니다.",
       },
     },
   },
@@ -194,7 +193,7 @@ export default function PatternPage() {
 
   const renderItem = ({ item }: any) => {
     return (
-      <View style={styles.page} >
+      <View style={styles.page}>
         <Text style={styles.title}>{item.title}</Text>
 
         {item.content?.map((block: any, idx: number) => {
@@ -315,7 +314,9 @@ export default function PatternPage() {
                   }}
                   style={[
                     styles.modalItem,
-                    currentIndex === index && { backgroundColor: "rgba(208,108,92,0.25)" },
+                    currentIndex === index && {
+                      backgroundColor: "rgba(208,108,92,0.25)",
+                    },
                   ]}
                 >
                   <Text style={styles.modalItemText}>
@@ -344,9 +345,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
+    // backgroundColor: "rgba(208,108,92,0.25)",
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 10,
+    paddingTop: 40,
+    paddingBottom: 60,
     textAlign: "center",
   },
   text: {

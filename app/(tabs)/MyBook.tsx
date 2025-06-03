@@ -5,6 +5,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -21,29 +22,29 @@ type Project = {
 const projects: Project[] = [
   {
     id: "514",
-    title: "스포츠 스웨터 (Athletic Sweater)",
+    title: "스포츠 스웨터 (Athletic Sweater No. 514",
     description: "Antique Pattern Library",
     image:
       "https://res.cloudinary.com/dvo3p6sao/image/upload/v1748100053/514_cover.png?v=1",
   },
   {
     id: "522",
-    title: "Knit Shoulder Scarf No. 522",
+    title: "니트 숄더 스카프 (Knit Shoulder Scarf No. 522)",
     description: "Antique Pattern Library",
     image: require("../../assets/images/도안사진6.png"),
   },
-  {
-    id: "2",
-    title: "초록 니트 모자",
-    description: "겨울에 따뜻하게 쓰려고 만든 모자예요.",
-    image: require("../../assets/images/도안사진2.jpg"),
-  },
-  {
-    id: "3",
-    title: "분홍색 목도리",
-    description: "처음으로 만든 목도리예요. 촉감이 부드럽고 포근해요!",
-    image: require("../../assets/images/도안사진1.jpg"),
-  },
+  // {
+  //   id: "2",
+  //   title: "초록 니트 모자",
+  //   description: "겨울에 따뜻하게 쓰려고 만든 모자예요.",
+  //   image: require("../../assets/images/도안사진2.jpg"),
+  // },
+  // {
+  //   id: "3",
+  //   title: "분홍색 목도리",
+  //   description: "처음으로 만든 목도리예요. 촉감이 부드럽고 포근해요!",
+  //   image: require("../../assets/images/도안사진1.jpg"),
+  // },
 ];
 
 const gap = 12;
@@ -51,21 +52,32 @@ const gap = 12;
 export default function MyBook() {
   const [numColumns, setNumColumns] = useState(3);
   const [cardWidth, setCardWidth] = useState(0);
+  const [fontSize, setFontSize] = useState(12);
 
   useEffect(() => {
     const updateLayout = () => {
       const width = Dimensions.get("window").width;
 
       let columns = 3;
-      if (width < 600) {
+      let font = 12;
+
+      if (width < 480) {
+        columns = 2;
+        font = 11;
+      } else if (width < 768) {
         columns = 3;
+        font = 12;
       } else if (width < 1000) {
         columns = 5;
+        font = 13;
       } else {
-        columns = 7;
+        columns = 6;
+        font = 14;
       }
 
       setNumColumns(columns);
+      setFontSize(font);
+
       const calculatedWidth = (width - gap * (columns + 1)) / columns;
       setCardWidth(calculatedWidth);
     };
@@ -83,13 +95,13 @@ export default function MyBook() {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.header}>서재</Text>
+      <Text style={[styles.header, { fontSize: fontSize + 10 }]}>서재</Text>
 
       <FlatList
         data={projects}
         keyExtractor={(item) => item.id}
         numColumns={numColumns}
-        key={numColumns} // 강제 리렌더링
+        key={numColumns}
         contentContainerStyle={styles.listContent}
         columnWrapperStyle={{
           justifyContent: "space-between",
@@ -108,7 +120,7 @@ export default function MyBook() {
               styles.card,
               {
                 width: cardWidth,
-                height: cardWidth * (16 / 9), // 비율 유지 (3:4)
+                height: cardWidth * (4 / 3), // 3:4 비율로 조정
               },
             ]}
           >
@@ -117,9 +129,16 @@ export default function MyBook() {
               style={styles.image}
               resizeMode="cover"
             />
-            <View>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.description}>{item.description}</Text>
+            <View style={styles.cardTextWrapper}>
+              <Text style={[styles.title, { fontSize }]} numberOfLines={2}>
+                {item.title}
+              </Text>
+              <Text
+                style={[styles.description, { fontSize: fontSize - 2 }]}
+                numberOfLines={2}
+              >
+                {item.description}
+              </Text>
             </View>
           </TouchableOpacity>
         )}
@@ -136,7 +155,6 @@ const styles = StyleSheet.create({
   publicHeader: {
     paddingVertical: 9,
     paddingHorizontal: 12,
-    display: "flex",
     flexDirection: "row-reverse",
     height: 48,
     alignItems: "center",
@@ -146,7 +164,6 @@ const styles = StyleSheet.create({
   header: {
     padding: 20,
     color: "#431605",
-    fontSize: 22,
     fontWeight: "bold",
   },
   listContent: {
@@ -156,11 +173,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: "#fff",
     borderRadius: 10,
-    elevation: 4,
+    elevation: 3,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
-    shadowRadius: 10,
+    shadowRadius: 6,
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
   },
   image: {
     width: "100%",
@@ -168,21 +186,16 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
+  cardTextWrapper: {
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+  },
   title: {
     color: "#431605",
-    fontSize: 12,
     fontWeight: "bold",
-    paddingHorizontal: 6,
-    marginTop: 4,
   },
   description: {
-    fontSize: 10,
-    paddingHorizontal: 6,
     color: "#666",
-  },
-  row: {
-    flexDirection: "row",
-    gap: 6,
   },
 });
 
