@@ -1,6 +1,6 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
-import { Image } from "react-native";
 
 export default function TabLayout() {
   return (
@@ -9,6 +9,8 @@ export default function TabLayout() {
         name="MyBook"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="book-outline" size={30} color="#431605" style={{opacity: focused ? 1 : 0.4}}/>
+            /*
             <Image
               source={require("./../../assets/images/navLogo-mybook.png")}
               style={{
@@ -17,6 +19,7 @@ export default function TabLayout() {
                 opacity: focused ? 1 : 0.4,
               }}
             />
+            */
           ),
         }}
       />
@@ -24,6 +27,8 @@ export default function TabLayout() {
         name="Shop"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="storefront-outline" size={30} color="#431605" style={{opacity: focused ? 1 : 0.4}}/>
+            /*
             <Image
               source={require("./../../assets/images/navLogo-shop.png")}
               style={{
@@ -32,6 +37,7 @@ export default function TabLayout() {
                 opacity: focused ? 1 : 0.5,
               }}
             />
+            */
           ),
         }}
       />
@@ -56,6 +62,8 @@ export default function TabLayout() {
         name="Profile"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="settings-sharp" size={30} color="#431605" style={{opacity: focused ? 1 : 0.4}}/>
+            /*
             <Image
               source={require("./../../assets/images/navLogo-setting.png")}
               style={{
@@ -64,6 +72,7 @@ export default function TabLayout() {
                 opacity: focused ? 1 : 0.5,
               }}
             />
+            */
           ),
         }}
       />
