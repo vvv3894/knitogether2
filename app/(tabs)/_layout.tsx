@@ -9,7 +9,7 @@ export default function TabLayout() {
         name="MyBook"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="book-outline" size={30} color="#431605" style={{opacity: focused ? 1 : 0.4}}/>
+            <Ionicons name="library-outline" size={30} color="#431605" style={{opacity: focused ? 1 : 0.4}}/>
             /*
             <Image
               source={require("./../../assets/images/navLogo-mybook.png")}
@@ -21,6 +21,7 @@ export default function TabLayout() {
             />
             */
           ),
+          tabBarActiveTintColor:"#431605",
         }}
       />
       <Tabs.Screen
@@ -39,6 +40,7 @@ export default function TabLayout() {
             />
             */
           ),
+          tabBarActiveTintColor:"#431605",
         }}
       />
       {/*
@@ -62,7 +64,7 @@ export default function TabLayout() {
         name="Profile"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="settings-sharp" size={30} color="#431605" style={{opacity: focused ? 1 : 0.4}}/>
+            <Ionicons name="person-circle-outline" size={30} color="#431605" style={{opacity: focused ? 1 : 0.4}}/>
             /*
             <Image
               source={require("./../../assets/images/navLogo-setting.png")}
@@ -74,6 +76,7 @@ export default function TabLayout() {
             />
             */
           ),
+          tabBarActiveTintColor:"#431605",
         }}
       />
     </Tabs>
