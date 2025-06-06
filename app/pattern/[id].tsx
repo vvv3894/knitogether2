@@ -14,6 +14,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -60,9 +61,8 @@ const patternData: {
           "장미색 실로 80코 코잡기\n/*3코 고무뜨기*/\n1-11단 : 안뜨기로 시작해서 3코 고무뜨기 11단 반복\n12-63단 : 색을 바꿔가며 3코 고무뜨기 반복\n  12-13단 : 검정 실\n  14-21단 : 장미색 실\n  22-23단 : 검정 실\n  24-31단 : 파란 실\n  32-33단 : 검정 실\n  34-41단 : 노란 실\n  42-43단 : 검정 실\n  44-51단 : 파란 실\n  52-53단 : 검정 실\n  54-61단 : 장미색 실\n  62-63단 : 검정 실\n장미색 실로 변경해서 전체 길이가 18인치가 될 때까지 겉뜨기\n단의 양 끝에 마커를 하나씩 걸어줍니다. (소매 시작 표시)\n겉뜨기 72단 반복",
         video:
           "https://res.cloudinary.com/dvo3p6sao/video/upload/w_380,h_213/v1748965335/SHANA_514_3%EC%BD%94_%EA%B3%A0%EB%AC%B4%EB%9C%A8%EA%B8%B0.mp4",
-        //   image:
-        //     "https://res.cloudinary.com/dvo3p6sao/image/upload/w_380,h_213/v1747798694/%EB%B8%8C%EB%9D%BC%EC%9D%B4%EC%96%B4%EC%8A%A4%ED%8B%B0%EC%B9%98.png",
-        //
+        image:
+          "https://res.cloudinary.com/dvo3p6sao/image/upload/w_380,h_213/v1747798694/%EB%B8%8C%EB%9D%BC%EC%9D%B4%EC%96%B4%EC%8A%A4%ED%8B%B0%EC%B9%98.png",
       },
       "3": {
         pagename: "앞판",
@@ -178,6 +178,7 @@ export default function PatternPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [modalVisible, setModalVisible] = useState(false); // ← 이 부분 추가
+  const [modalCommentVisible, setModalCommentVisible] = useState(false); // ← 이 부분 추가
   const flatListRef = useRef<FlatList>(null);
 
   const pages = getPagesArray(patternId);
@@ -268,8 +269,11 @@ export default function PatternPage() {
         >
           <Text style={styles.buttonText}>목차</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>커뮤니티</Text>
+        <TouchableOpacity
+          onPress={() => setModalCommentVisible(true)}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>댓글</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, isLocked && { backgroundColor: "#D06c5c" }]}
@@ -331,6 +335,61 @@ export default function PatternPage() {
               onPress={() => setModalVisible(false)}
             >
               <Text style={styles.buttonText}>닫기</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        visible={modalCommentVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>댓글</Text>
+
+            {/* 임시 댓글 리스트 */}
+            <View style={styles.commentItem}>
+              <Text style={styles.commentAuthor}>🧵 뜨개질러1</Text>
+              <Text style={styles.commentText}>
+                이 도안 정말 친절하게 되어 있어요!
+              </Text>
+            </View>
+            <View style={styles.commentItem}>
+              <Text style={styles.commentAuthor}>🧶 사용자2</Text>
+              <Text style={styles.commentText}>
+                앞판 부분이 이해가 잘 안되는데요 ㅠㅠ
+              </Text>
+            </View>
+
+            {/* 댓글 입력창 */}
+            <View style={styles.commentInputContainer}>
+              <TextInput
+                style={styles.commentInput}
+                placeholder="댓글을 입력하세요..."
+                // value={commentInput}
+                // onChangeText={setCommentInput}
+                multiline
+              />
+              <TouchableOpacity
+              // onPress={() => {
+              //   if (commentInput.trim()) {
+              //     console.log("댓글 전송됨:", commentInput);
+              //     setCommentInput(""); // 인풋 초기화
+              //   }
+              // }}
+              // style={styles.sendButton}
+              >
+                <Text style={styles.sendButtonText}>전송</Text>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setModalCommentVisible(false)}
+            >
+              <Text style={styles.closeButtonText}>닫기</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -455,5 +514,71 @@ const styles = StyleSheet.create({
   modalItemText: {
     color: "#431605",
     fontSize: 16,
+  },
+  commentButton: {
+    position: "absolute",
+    top: 50,
+    right: 20,
+    backgroundColor: "#f0f0f0",
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    zIndex: 10,
+  },
+  commentButtonText: {
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  commentItem: {
+    marginBottom: 16,
+  },
+  commentAuthor: {
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  commentText: {
+    fontSize: 14,
+  },
+  closeButton: {
+    marginTop: 24,
+    backgroundColor: "#e0e0e0",
+    padding: 10,
+    borderRadius: 8,
+    alignSelf: "center",
+  },
+  closeButtonText: {
+    fontWeight: "bold",
+  },
+  commentInputContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderTopWidth: 1,
+    borderColor: "#ccc",
+    backgroundColor: "#fff",
+    marginTop: 8,
+  },
+  commentInput: {
+    flex: 1,
+    minHeight: 40,
+    maxHeight: 100,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: "#f0f0f0",
+    borderRadius: 20,
+    fontSize: 14,
+  },
+  sendButton: {
+    marginLeft: 8,
+    backgroundColor: "#4CAF50",
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 20,
+  },
+  sendButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 14,
   },
 });

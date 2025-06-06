@@ -42,6 +42,46 @@ async function fetchMyPatternIds(): Promise<string[]> {
     return [];
   }
 }
+
+// async function addMyPatternId(patternId: string): Promise<boolean> {
+//   try {
+//     const response = await fetch("http://localhost:1337/api/my-pattern-lists", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         PatterId: patternId,
+//       }),
+//     });
+
+//     if (!response.ok) throw new Error("패턴 추가에 실패했습니다.");
+
+//     return true;
+//   } catch (error) {
+//     console.error("내 도안 ID 추가 실패:", error);
+//     return false;
+//   }
+// }
+
+// async function deleteMyPatternId(patternId: string): Promise<boolean> {
+//   try {
+//     const response = await fetch(`http://localhost:1337/api/my-pattern-lists/${patternId}`, {
+//       method: "DELETE",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+
+//     if (!response.ok) throw new Error("패턴 삭제에 실패했습니다.");
+
+//     return true;
+//   } catch (error) {
+//     console.error("내 도안 ID 삭제 실패:", error);
+//     return false;
+//   }
+// }
+
 export default function MyBook() {
   const [numColumns, setNumColumns] = useState(3);
   const [cardWidth, setCardWidth] = useState(0);
