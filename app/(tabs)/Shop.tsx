@@ -14,8 +14,7 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-
-const categories = ["전체", "외투","상/하의", "패션잡화"];
+const categories = ["전체", "외투", "상/하의", "패션잡화"];
 
 export default function Shop() {
   const [userInput, setUserInput] = useState<string>();
@@ -26,11 +25,13 @@ export default function Shop() {
       selectedCategory === "전체" ||
       (selectedCategory === "상/하의"
         ? item.category === "상의" || item.category === "하의"
-        : item.category === selectedCategory) ||  (selectedCategory === "패션잡화"
+        : item.category === selectedCategory) ||
+      (selectedCategory === "패션잡화"
         ? item.category === "패션잡화"
-        : item.category === selectedCategory) || (selectedCategory === "외투"
-        ? item.category === "외투" 
-        : item.category === selectedCategory) ;
+        : item.category === selectedCategory) ||
+      (selectedCategory === "외투"
+        ? item.category === "외투"
+        : item.category === selectedCategory);
     const matchesSearch =
       !userInput ||
       item.title.includes(userInput) ||
@@ -132,23 +133,23 @@ export default function Shop() {
               
             </View> */}
             <View style={styles.textContainer}>
-            <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.title}>{item.title}</Text>
 
-<View style={styles.row}>
-  <Text style={styles.label}>디자이너:</Text>
-  <Text style={styles.value}>{item.writer}</Text>
-</View>
+              <View style={styles.row}>
+                <Text style={styles.label}>디자이너:</Text>
+                <Text style={styles.value}>{item.writer}</Text>
+              </View>
 
-<View style={styles.row}>
-  <Text style={styles.label}>카테고리:</Text>
-  <Text style={styles.value}>{item.category}</Text>
-</View>
-{/*
+              <View style={styles.row}>
+                <Text style={styles.label}>카테고리:</Text>
+                <Text style={styles.value}>{item.category}</Text>
+              </View>
+              {/*
             <View style={styles.row}> 
             </View>
             <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail" >{item.description}</Text>
             */}
-              </View>
+            </View>
           </TouchableOpacity>
         )}
         contentContainerStyle={styles.listContent}
@@ -156,7 +157,6 @@ export default function Shop() {
     </View>
   );
 }
-
 
 const screenWidth = Dimensions.get("window").width;
 const BUTTON_MARGIN = 8;
@@ -309,5 +309,4 @@ const styles = StyleSheet.create({
     color: "#333",
     fontSize: 12,
   },
-  
 });
