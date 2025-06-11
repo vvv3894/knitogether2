@@ -1,4 +1,4 @@
-import { shopItems } from "@/data/shopItem"; // ✅ 도안 데이터 가져오기
+import { shopItems } from "@/data/shopItem"; // 도안 데이터 가져오기
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";

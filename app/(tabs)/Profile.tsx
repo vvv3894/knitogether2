@@ -87,6 +87,7 @@ export default function Profile() {
     },
     settingItem: {
       paddingVertical: 15,
+      paddingHorizontal: 20,
       borderBottomColor: isDarkTheme ? "#444" : "#ddd",
       borderBottomWidth: 1,
       flexDirection: "row",
