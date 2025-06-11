@@ -3,6 +3,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Dimensions,
   FlatList,
   Image,
@@ -36,51 +37,55 @@ async function fetchMyPatternIds(): Promise<string[]> {
     if (!response.ok) throw new Error("패턴 목록을 불러오지 못했습니다.");
 
     const data = await response.json();
-    return data.data.map((item: any) => String(item.PatterId));
+    // 전체 응답 로그
+    console.log("📦 전체 응답 데이터:", data);
+    return data.data.map((item: any) => String(item.PatternId));
   } catch (error) {
     console.error("내 도안 ID 불러오기 실패:", error);
     return [];
   }
 }
 
-// async function addMyPatternId(patternId: string): Promise<boolean> {
-//   try {
-//     const response = await fetch("http://localhost:1337/api/my-pattern-lists", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         PatterId: patternId,
-//       }),
-//     });
+async function deleteMyPatternId(patternId: string): Promise<boolean> {
+  try {
+    const res = await fetch("http://localhost:1337/api/my-pattern-lists");
+    const json = await res.json();
 
-//     if (!response.ok) throw new Error("패턴 추가에 실패했습니다.");
+    console.log("📦 전체 응답:", json);
 
-//     return true;
-//   } catch (error) {
-//     console.error("내 도안 ID 추가 실패:", error);
-//     return false;
-//   }
-// }
+    const match = json.data.find(
+      (item: any) => String(item.PatternId) === patternId
+    );
 
-// async function deleteMyPatternId(patternId: string): Promise<boolean> {
-//   try {
-//     const response = await fetch(`http://localhost:1337/api/my-pattern-lists/${patternId}`, {
-//       method: "DELETE",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
+    if (!match) {
+      console.warn("⚠️ 삭제할 패턴이 없습니다. patternId:", patternId);
+      return false;
+    }
 
-//     if (!response.ok) throw new Error("패턴 삭제에 실패했습니다.");
+    const rowId = match.id - 1;
+    console.log("🧨 삭제 대상 rowId:", rowId);
 
-//     return true;
-//   } catch (error) {
-//     console.error("내 도안 ID 삭제 실패:", error);
-//     return false;
-//   }
-// }
+    const deleteRes = await fetch(
+      `http://localhost:1337/api/my-pattern-lists/${rowId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("🧹 삭제 응답 상태코드:", deleteRes.status); // 204 기대됨
+
+    const deleteJson = await deleteRes.json().catch(() => null);
+    console.log("🧹 삭제 응답 상태코드:", deleteRes.status);
+    console.log("📩 삭제 응답 내용:", deleteJson);
+    return deleteRes.ok;
+  } catch (error) {
+    console.error("❌ 삭제 중 에러 발생:", error);
+    return false;
+  }
+}
 
 export default function MyBook() {
   const [numColumns, setNumColumns] = useState(3);
@@ -130,6 +135,16 @@ export default function MyBook() {
     loadMyPatterns();
   }, []);
 
+  // 삭제 함수
+  async function handleDelete(patternId: string) {
+    const ok = await deleteMyPatternId(patternId);
+    if (ok) {
+      setMyProjects((prev) => prev.filter((item) => item.id !== patternId));
+    } else {
+      Alert.alert("삭제 실패", "패턴 삭제에 실패했습니다.");
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.publicHeader}>
@@ -152,13 +167,7 @@ export default function MyBook() {
         }}
         style={{ paddingTop: 5 }}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() =>
-              router.push({
-                pathname: "/pattern/[id]",
-                params: { id: item.id },
-              })
-            }
+          <View
             style={[
               styles.card,
               {
@@ -167,23 +176,62 @@ export default function MyBook() {
               },
             ]}
           >
-            <Image
-              source={item.image}
-              style={styles.image}
-              resizeMode="cover"
-            />
-            <View style={styles.cardTextWrapper}>
-              <Text style={[styles.title, { fontSize }]} numberOfLines={2}>
-                {item.title}
-              </Text>
-              <Text
-                style={[styles.description, { fontSize: fontSize - 2 }]}
-                numberOfLines={2}
-              >
-                {item.description}
-              </Text>
-            </View>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                router.push({
+                  pathname: "/pattern/[id]",
+                  params: { id: item.id },
+                })
+              }
+              style={[
+                styles.card,
+                {
+                  width: cardWidth,
+                  height: cardWidth * (4 / 3),
+                },
+              ]}
+            >
+              <Image
+                source={item.image}
+                style={styles.image}
+                resizeMode="cover"
+              />
+              <View style={styles.cardTextWrapper}>
+                <Text style={[styles.title, { fontSize }]} numberOfLines={2}>
+                  {item.title}
+                </Text>
+                <Text
+                  style={[styles.description, { fontSize: fontSize - 2 }]}
+                  numberOfLines={2}
+                >
+                  {item.description}
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => {
+                console.log("삭제 버튼 클릭됨");
+                if (Platform.OS === "web") {
+                  // confirm은 true(확인)면 삭제, false(취소)면 아무것도 안 함
+                  if (window.confirm("정말 삭제하시겠습니까?")) {
+                    handleDelete(item.id);
+                  }
+                } else {
+                  Alert.alert("삭제 확인", "정말 삭제하시겠습니까?", [
+                    { text: "취소", style: "cancel" },
+                    {
+                      text: "삭제",
+                      style: "destructive",
+                      onPress: () => handleDelete(item.id),
+                    },
+                  ]);
+                }
+              }}
+            >
+              <Ionicons name="trash-outline" size={20} color="#d06c5c" />
+            </TouchableOpacity>
+          </View>
         )}
       />
     </View>
@@ -240,6 +288,16 @@ const styles = StyleSheet.create({
   },
   description: {
     color: "#666",
+  },
+  deleteButton: {
+    position: "absolute",
+    top: 6,
+    right: 6,
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 4,
+    elevation: 2,
+    zIndex: 10,
   },
 });
 
