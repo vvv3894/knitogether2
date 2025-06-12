@@ -783,7 +783,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   sendButtonText: {
-    color: "white",
+    color: "#431605",
     fontWeight: "bold",
     fontSize: 14,
   },

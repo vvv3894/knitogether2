@@ -33,7 +33,7 @@ export default function Profile() {
     try {
       await signOut(auth);
       Alert.alert("로그아웃", "성공적으로 로그아웃 되었습니다.");
-      router.replace("/firebase/login");
+      router.push({pathname:"/firebase/login"});
     } catch (error) {
       console.error("로그아웃 오류:", error);
       Alert.alert("오류", "로그아웃 중 문제가 발생했습니다.");
@@ -163,7 +163,7 @@ export default function Profile() {
       <View style={dynamicStyles.container}>
         <StatusBar barStyle={isDarkTheme ? "light-content" : "dark-content"} />
         {renderHeader("앱 정보")}
-        <Text style={dynamicStyles.content}>📄 버전: 1.0.0 {"\n"}제작자: 니팅러버 팀</Text>
+        <Text style={dynamicStyles.content}>📄 버전: 1.0.0 {"\n"}제작자: 마동석 팀</Text>
       </View>
     );
   }
@@ -179,7 +179,8 @@ export default function Profile() {
           source={require("../../assets/images/avata.png")}
           style={dynamicStyles.profileImage}
         />
-        <Text style={dynamicStyles.username}>니팅러버123</Text>
+        {/*<Text style={dynamicStyles.username}>니팅러버123</Text>*/}
+        {/*user에 따라 달라지는 게 아니면 없는게 나을듯요*/}
         <Text style={dynamicStyles.email}>{email}</Text>
       </View>
 
