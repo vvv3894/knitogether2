@@ -42,7 +42,7 @@ export default function Shop() {
   return (
     <View style={styles.container}>
       <View style={styles.publicHeader}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push({pathname:"../qr/QrScan"})}>
           <Ionicons name="qr-code-outline" size={30} color="#431605" />
         </TouchableOpacity>
       </View>
