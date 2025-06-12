@@ -3,8 +3,9 @@ import { useRoute } from "@react-navigation/native";
 import { ResizeMode, Video } from "expo-av";
 import * as KeepAwake from "expo-keep-awake";
 import { router } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Dimensions,
   FlatList,
   Image,
@@ -171,9 +172,23 @@ function getPagesArray(patternId: string) {
     });
 }
 
+// 날짜 포맷 함수 추가
+function formatDate(dateString: string) {
+  const d = new Date(dateString);
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  const hh = String(d.getHours()).padStart(2, "0");
+  const min = String(d.getMinutes()).padStart(2, "0");
+  return `${yyyy}.${mm}.${dd} ${hh}:${min}`;
+}
+
 export default function PatternPage() {
   const route = useRoute();
   const { id: patternId } = route.params as { id: string }; // params에서 id 받아오기
+
+  const safePatternId = patternData[patternId] ? patternId : "522";
+  const pages = getPagesArray(safePatternId);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -181,8 +196,12 @@ export default function PatternPage() {
   const [modalCommentVisible, setModalCommentVisible] = useState(false); // ← 이 부분 추가
   const flatListRef = useRef<FlatList>(null);
 
-  const pages = getPagesArray(patternId);
   const [isLocked, setIsLocked] = useState(false);
+
+  // 댓글 관련 상태
+  const [comments, setComments] = useState<any[]>([]);
+  const [commentInput, setCommentInput] = useState("");
+  const [loadingComments, setLoadingComments] = useState(false);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetX = event.nativeEvent.contentOffset.x;
@@ -231,6 +250,162 @@ export default function PatternPage() {
       </View>
     );
   };
+
+  // 댓글 불러오기
+  const fetchComments = async () => {
+    setLoadingComments(true);
+    try {
+      console.log("댓글 조회 patternId:", patternId); // patternId 콘솔 출력
+      const res = await fetch(
+        `http://localhost:1337/api/pattern-comments?filters[patternId][$eq]=${patternId}&sort=createdAt:desc`
+      );
+      const json = await res.json();
+      console.log("댓글 조회 결과:", json); // 받아온 전체 데이터 콘솔 출력
+      setComments(json.data || []);
+    } catch (e) {
+      console.error("댓글 조회 에러:", e);
+      setComments([]);
+    }
+    setLoadingComments(false);
+  };
+
+  // 댓글 작성
+  const handleSendComment = async () => {
+    if (!commentInput.trim()) return;
+    try {
+      // patternId와 body 콘솔 출력
+      console.log("댓글 작성 patternId:", patternId);
+      console.log("댓글 작성 body:", {
+        data: {
+          patternId: patternId,
+          author: "니팅러버123",
+          content: commentInput.trim(),
+        },
+      });
+
+      const res = await fetch("http://localhost:1337/api/pattern-comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data: {
+            patternId: patternId,
+            author: "니팅러버123",
+            content: commentInput.trim(),
+          },
+        }),
+      });
+      if (res.ok) {
+        setCommentInput("");
+        fetchComments();
+      }
+    } catch (e) {
+      console.error("댓글 작성 에러:", e);
+    }
+  };
+  //댓글삭제
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      // 1. commentId로부터 해당 코멘트 정보 가져오기
+      const res = await fetch(
+        `http://localhost:1337/api/pattern-comments/${commentId}`
+      );
+      const json = await res.json();
+
+      // 2. 코멘트가 없을 경우
+      if (!json?.data) {
+        console.warn("❌ 해당 commentId에 대한 데이터가 없습니다:", commentId);
+        alert("삭제할 댓글을 찾을 수 없습니다.");
+        return;
+      }
+
+      const documentId = json.data.attributes?.documentId;
+      if (!documentId) {
+        console.warn("❌ 댓글에 documentId가 없습니다:", commentId);
+        alert("댓글에 연결된 documentId를 찾을 수 없습니다.");
+        return;
+      }
+
+      console.log("📌 commentId로 찾은 documentId:", documentId);
+
+      // 3. 모든 코멘트를 가져와서 documentId 일치 항목 찾기
+      const allRes = await fetch(`http://localhost:1337/api/pattern-comments`);
+      const allJson = await allRes.json();
+
+      const match = allJson.data.find(
+        (item: any) => item.attributes?.documentId === documentId
+      );
+
+      if (!match) {
+        console.warn(
+          "⚠️ 해당 documentId로 댓글을 찾을 수 없습니다:",
+          documentId
+        );
+        alert("삭제할 댓글을 찾을 수 없습니다.");
+        return;
+      }
+
+      const rowId = match.id;
+      console.log("🧨 삭제 대상 rowId (Strapi 내부 id):", rowId);
+
+      // 4. DELETE 요청
+      const deleteRes = await fetch(
+        `http://localhost:1337/api/pattern-comments/${rowId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("🧹 삭제 응답 상태코드:", deleteRes.status);
+      const deleteJson = await deleteRes.json().catch(() => null);
+      console.log("📩 삭제 응답 내용:", deleteJson);
+
+      if (deleteRes.ok) {
+        fetchComments(); // 댓글 목록 다시 불러오기
+      } else {
+        alert("삭제 실패: " + deleteRes.status);
+      }
+    } catch (e) {
+      console.error("❌ 삭제 중 에러:", e);
+      alert("삭제 중 오류 발생");
+    }
+  };
+
+  // 댓글 삭제 (patternId를 0으로 업데이트)
+  // const handleDeleteComment = async (commentId: string) => {
+  //   try {
+  //     console.log("삭제(업데이트) 시도 commentId:", commentId);
+  //     const res = await fetch(
+  //       `http://localhost:1337/api/pattern-comments/${commentId}`,
+  //       {
+  //         method: "PUT",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           data: {
+  //             patternId: 0,
+  //           },
+  //         }),
+  //       }
+  //     );
+  //     console.log("업데이트(삭제) 응답 status:", res.status);
+  //     if (res.ok) {
+  //       fetchComments();
+  //     } else {
+  //       const errText = await res.text();
+  //       console.error("업데이트(삭제) 실패 응답:", errText);
+  //       alert("삭제 실패: " + res.status);
+  //     }
+  //   } catch (e) {
+  //     console.error("삭제(업데이트) 중 에러:", e);
+  //   }
+  // };
+
+  useEffect(() => {
+    if (modalCommentVisible) fetchComments();
+    // eslint-disable-next-line
+  }, [modalCommentVisible]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -339,47 +514,78 @@ export default function PatternPage() {
           </View>
         </View>
       </Modal>
+
+      {/* 댓글 모달 */}
       <Modal
         visible={modalCommentVisible}
         animationType="slide"
         transparent={true}
-        onRequestClose={() => setModalVisible(false)}
+        onRequestClose={() => setModalCommentVisible(false)}
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>댓글</Text>
 
-            {/* 임시 댓글 리스트 */}
-            <View style={styles.commentItem}>
-              <Text style={styles.commentAuthor}>🧵 뜨개질러1</Text>
-              <Text style={styles.commentText}>
-                이 도안 정말 친절하게 되어 있어요!
+            {loadingComments ? (
+              <ActivityIndicator size="small" />
+            ) : comments.length === 0 ? (
+              <Text style={{ textAlign: "center", marginVertical: 16 }}>
+                아직 댓글이 없습니다.
               </Text>
-            </View>
-            <View style={styles.commentItem}>
-              <Text style={styles.commentAuthor}>🧶 사용자2</Text>
-              <Text style={styles.commentText}>
-                앞판 부분이 이해가 잘 안되는데요 ㅠㅠ
-              </Text>
-            </View>
+            ) : (
+              // 오래된 댓글이 위로 가도록 오름차순 정렬
+              [...comments]
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+                )
+                .map((c) =>
+                  c.content ? (
+                    <View key={c.id} style={styles.commentItem}>
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <Text style={styles.commentAuthor}>
+                          {c.author || "익명"}
+                        </Text>
+                        <Text
+                          style={{
+                            fontWeight: "400",
+                            color: "#888",
+                            fontSize: 12,
+                            marginLeft: 4,
+                          }}
+                        >
+                          {formatDate(c.createdAt)}
+                        </Text>
+                        <TouchableOpacity
+                          style={{ marginLeft: 8 }}
+                          onPress={() => handleDeleteComment(c.id)}
+                        >
+                          {/* <Text style={{ color: "#d06c5c", fontSize: 12 }}>
+                      삭제
+                    </Text> */}
+                        </TouchableOpacity>
+                      </View>
+                      <Text style={styles.commentText}>{c.content}</Text>
+                    </View>
+                  ) : null
+                )
+            )}
 
             {/* 댓글 입력창 */}
             <View style={styles.commentInputContainer}>
               <TextInput
                 style={styles.commentInput}
                 placeholder="댓글을 입력하세요..."
-                // value={commentInput}
-                // onChangeText={setCommentInput}
+                value={commentInput}
+                onChangeText={setCommentInput}
                 multiline
               />
               <TouchableOpacity
-              // onPress={() => {
-              //   if (commentInput.trim()) {
-              //     console.log("댓글 전송됨:", commentInput);
-              //     setCommentInput(""); // 인풋 초기화
-              //   }
-              // }}
-              // style={styles.sendButton}
+                onPress={handleSendComment}
+                style={styles.sendButton}
               >
                 <Text style={styles.sendButtonText}>전송</Text>
               </TouchableOpacity>

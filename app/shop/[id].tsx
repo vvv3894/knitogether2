@@ -1,6 +1,6 @@
 import { shopItems } from "@/data/shopItem";
 import { useLocalSearchParams } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Image,
@@ -21,7 +21,7 @@ async function addMyPatternId(patternId: string): Promise<boolean> {
       },
       body: JSON.stringify({
         data: {
-          PatternId: Number(patternId),
+          PatternId: patternId,
         },
       }),
     });
@@ -52,7 +52,7 @@ export default function PatternDetail() {
   }
 
   // 내 서재에 이미 패턴이 있는지 확인하는 함수
-  async function checkIfPatternAdded(patternId: number) {
+  async function checkIfPatternAdded(patternId: string) {
     try {
       const response = await fetch(
         `http://localhost:1337/api/my-pattern-lists?filters[PatternId][$eq]=${patternId}`
@@ -82,6 +82,11 @@ export default function PatternDetail() {
     }
   };
 
+  // 패턴이 이미 서재에 있는지 확인
+  useEffect(() => {
+    if (!pattern) return;
+    checkIfPatternAdded(pattern.id).then(setAdded);
+  }, [pattern]);
   return (
     <ScrollView
       style={styles.container}
@@ -123,7 +128,7 @@ export default function PatternDetail() {
         disabled={added}
       >
         <Text style={styles.buttonText}>
-          {added ? "서재에 추가됨" : "서재에 추가"}
+          {added ? "이미 서재에 추가됨" : "서재에 추가"}
         </Text>
       </TouchableOpacity>
     </ScrollView>
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
   },
 
   buttonDisabled: {
-    backgroundColor: "#ffd56c5c",
+    backgroundColor: "#FFCF47",
   },
 
   buttonText: {

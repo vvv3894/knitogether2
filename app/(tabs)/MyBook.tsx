@@ -1,7 +1,7 @@
 import { shopItems } from "@/data/shopItem"; // 도안 데이터 가져오기
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { router, useFocusEffect } from "expo-router";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Alert,
   Dimensions,
@@ -31,6 +31,9 @@ async function fetchMyPatternIds(): Promise<string[]> {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        //   Authorization:
+        //     "Bearer e9339949108eb3d9704fe47d94167b81f3c77d5282bdf4fbe0ab140721fc5fe6bc9b59f2c664d70b562c31076c4ecd0085101e78e69917b358213c90a2c02be3fce4c7235b26d7bd09d47dfdec1ca71082c2a422c327d3c850be873c7d2cea32968c4883f64ca6d79172f4c60f9fab8f9fdd065f9cbdde870ca9890a4750e69b", // 여기에 토큰 넣기
+        //
       },
     });
 
@@ -49,6 +52,14 @@ async function fetchMyPatternIds(): Promise<string[]> {
 async function deleteMyPatternId(patternId: string): Promise<boolean> {
   try {
     const res = await fetch("http://localhost:1337/api/my-pattern-lists");
+    // const res = await fetch("http://localhost:1337/api/my-pattern-lists", {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization:
+    //       "Bearer e9339949108eb3d9704fe47d94167b81f3c77d5282bdf4fbe0ab140721fc5fe6bc9b59f2c664d70b562c31076c4ecd0085101e78e69917b358213c90a2c02be3fce4c7235b26d7bd09d47dfdec1ca71082c2a422c327d3c850be873c7d2cea32968c4883f64ca6d79172f4c60f9fab8f9fdd065f9cbdde870ca9890a4750e69b",
+    //   },
+    // });
     const json = await res.json();
 
     console.log("📦 전체 응답:", json);
@@ -62,15 +73,20 @@ async function deleteMyPatternId(patternId: string): Promise<boolean> {
       return false;
     }
 
-    const rowId = match.id - 1;
+    // const rowId = match.id;
+    const rowId = match.documentId;
     console.log("🧨 삭제 대상 rowId:", rowId);
 
     const deleteRes = await fetch(
       `http://localhost:1337/api/my-pattern-lists/${rowId}`,
+
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          //   Authorization:
+          //     "Bearer e9339949108eb3d9704fe47d94167b81f3c77d5282bdf4fbe0ab140721fc5fe6bc9b59f2c664d70b562c31076c4ecd0085101e78e69917b358213c90a2c02be3fce4c7235b26d7bd09d47dfdec1ca71082c2a422c327d3c850be873c7d2cea32968c4883f64ca6d79172f4c60f9fab8f9fdd065f9cbdde870ca9890a4750e69b", // 여기에 토큰 넣기
+          //
         },
       }
     );
@@ -86,6 +102,63 @@ async function deleteMyPatternId(patternId: string): Promise<boolean> {
     return false;
   }
 }
+
+// async function deleteMyPatternId(patternId: string): Promise<boolean> {
+//   try {
+//     // const res = await fetch("http://localhost:1337/api/my-pattern-lists");
+//     const res = await fetch("http://localhost:1337/api/my-pattern-lists", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization:
+//           "Bearer e9339949108eb3d9704fe47d94167b81f3c77d5282bdf4fbe0ab140721fc5fe6bc9b59f2c664d70b562c31076c4ecd0085101e78e69917b358213c90a2c02be3fce4c7235b26d7bd09d47dfdec1ca71082c2a422c327d3c850be873c7d2cea32968c4883f64ca6d79172f4c60f9fab8f9fdd065f9cbdde870ca9890a4750e69b",
+//       },
+//     });
+
+//     const json = await res.json();
+
+//     console.log("📦 전체 응답:", json);
+
+//     const match = json.data.find(
+//       (item: any) => String(item.PatternId) === patternId
+//     );
+
+//     if (!match) {
+//       console.warn("⚠️ 삭제할 패턴이 없습니다. patternId:", patternId);
+//       return false;
+//     }
+
+//     const rowId = match.id;
+//     console.log("🧨 업데이트(삭제) 대상 rowId:", rowId);
+
+//     // PATCH 또는 PUT으로 patternId를 0으로 업데이트
+//     const updateRes = await fetch(
+//       `http://localhost:1337/api/my-pattern-lists/${rowId}`,
+//       {
+//         method: "PUT",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization:
+//             "Bearer e9339949108eb3d9704fe47d94167b81f3c77d5282bdf4fbe0ab140721fc5fe6bc9b59f2c664d70b562c31076c4ecd0085101e78e69917b358213c90a2c02be3fce4c7235b26d7bd09d47dfdec1ca71082c2a422c327d3c850be873c7d2cea32968c4883f64ca6d79172f4c60f9fab8f9fdd065f9cbdde870ca9890a4750e69b", // 여기에 토큰 넣기
+//         },
+//         body: JSON.stringify({
+//           data: {
+//             PatternId: 0,
+//           },
+//         }),
+//       }
+//     );
+
+//     console.log("🧹 업데이트(삭제) 응답 상태코드:", updateRes.status);
+
+//     const updateJson = await updateRes.json().catch(() => null);
+//     console.log("📩 업데이트(삭제) 응답 내용:", updateJson);
+//     return updateRes.ok;
+//   } catch (error) {
+//     console.error("❌ 삭제(업데이트) 중 에러 발생:", error);
+//     return false;
+//   }
+// }
 
 export default function MyBook() {
   const [numColumns, setNumColumns] = useState(3);
@@ -123,6 +196,28 @@ export default function MyBook() {
     updateLayout();
     const subscription = Dimensions.addEventListener("change", updateLayout);
     return () => subscription.remove();
+  }, []);
+
+  //새로고침추가
+
+  useFocusEffect(
+    useCallback(() => {
+      // 포커스될 때마다 목록 새로고침
+      fetchMyPatternIds().then((myIds) => {
+        const filtered = shopItems.filter((p) => myIds.includes(p.id));
+        setMyProjects(filtered);
+      });
+    }, [])
+  );
+
+  // 기존 useEffect는 최초 마운트용으로 유지
+  useEffect(() => {
+    const loadMyPatterns = async () => {
+      const myIds = await fetchMyPatternIds();
+      const filtered = shopItems.filter((p) => myIds.includes(p.id));
+      setMyProjects(filtered);
+    };
+    loadMyPatterns();
   }, []);
 
   useEffect(() => {
