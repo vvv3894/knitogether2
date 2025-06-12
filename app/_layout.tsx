@@ -1,9 +1,13 @@
 import { Stack } from "expo-router";
+import Head from "expo-router/head";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <Head>
+        <title>kniTogether</title>
+      </Head>
       <Stack>
         <Stack.Screen name="Landing" options={{ headerShown: false }} />
         <Stack.Screen
