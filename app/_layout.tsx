@@ -30,6 +30,12 @@ export default function RootLayout() {
             headerTitle: "",
           }}
         />
+        <Stack.Screen
+          name="qr/QrScan"
+          options={{
+            headerTitle: "QR",
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   );
