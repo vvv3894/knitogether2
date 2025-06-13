@@ -164,6 +164,7 @@ export default function Profile() {
         <StatusBar barStyle={isDarkTheme ? "light-content" : "dark-content"} />
         {renderHeader("앱 정보")}
         <Text style={dynamicStyles.content}>📄 버전: 1.0.0 {"\n"}제작자: 마동석 팀</Text>
+        <Text style={dynamicStyles.content}>'Antique Pattern Library'에서 제작한 모든 도안은 [크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 라이선스]에 따라 이용 가능합니다.</Text>
       </View>
     );
   }

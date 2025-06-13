@@ -257,7 +257,6 @@ export default function MyBook() {
         key={numColumns}
         contentContainerStyle={styles.listContent}
         columnWrapperStyle={{
-          justifyContent: "space-between",
           paddingHorizontal: gap,
         }}
         style={{ paddingTop: 5 }}
@@ -268,6 +267,7 @@ export default function MyBook() {
               {
                 width: cardWidth,
                 height: cardWidth * (4 / 3),
+                marginRight: "0.5%",
               },
             ]}
           >
