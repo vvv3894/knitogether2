@@ -631,7 +631,7 @@ const styles = StyleSheet.create({
     width: width - 40,
     height: (width * 9) / 16,
     marginTop: 10,
-    backgroundColor: "grey",
+    backgroundColor: "#f2f2f2",
   },
 
   cover: {

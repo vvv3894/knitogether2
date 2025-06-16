@@ -10,18 +10,6 @@ export type ShopItem = {
 };
 
 export const shopItems: ShopItem[] = [
-  // {
-  //   id: "1",
-  //   title: "분홍색 목도리",
-  //   description: "처음으로 만든 목도리예요. 촉감이 부드럽고 포근해요!",
-  //   image: require("../assets/images/pattern01.jpg"),
-  // },
-  // {
-  //   id: "2",
-  //   title: "초록 니트 모자",
-  //   description: "겨울에 따뜻하게 쓰려고 만든 모자예요.",
-  //   image: require("../assets/images/pattern02.jpg"),
-  // },
   {
     id: "479",
     title: "Knit Sweater No. 479",
